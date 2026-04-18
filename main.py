@@ -448,3 +448,18 @@ def run_json_mode():
             print(f"- {item['case_id']}: {item['reason']}")
 
 
+# 성능 분석 출력기
+def print_performance_table():
+    print("\n#---------------------------------------")
+    print("# [성능 분석]")
+    print("#---------------------------------------")
+    print("크기       평균 시간(ms)    연산 횟수")
+    print("---------------------------------------")
+
+    for n in (3, 5, 13, 25):
+        pattern = build_cross_pattern(n)
+        filt = build_cross_pattern(n)
+        avg_ms = measure_average_ms(pattern, filt, repeat=10)
+
+        print(f"{n}x{n}      {avg_ms:>12.6f}      {n * n}")
+
