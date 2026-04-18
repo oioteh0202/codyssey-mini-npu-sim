@@ -52,3 +52,34 @@ def validate_matrix(matrix, expected_size=None):
                 return False, f"숫자 아님: ({i}, {j}) = {value}"
 
     return True, ""
+
+# MAC 점수 계산
+def mac_score(pattern, filt):
+    total = 0.0
+    n = len(pattern)
+
+    for i in range(n):
+        for j in range(n):
+            total += pattern[i][j] * filt[i][j]
+
+    return total
+
+# Cross 점수와 X 점수를 비교, 최종 라벨 결정
+def decide_label(score_cross, score_x, epsilon=EPSILON):
+    if abs(score_cross - score_x) < epsilon:
+        return "UNDECIDED"
+    if score_cross > score_x:
+        return "Cross"
+    return "X"
+
+# MAC 함수만 반복 측정, 평균 실행 시간 ms 단위로 계산
+def measure_average_ms(pattern, filt, repeat=10):
+    total_ms = 0.0
+
+    for _ in range(repeat):
+        start = time.perf_counter()
+        _ = mac_score(pattern, filt)
+        end = time.perf_counter()
+        total_ms += (end - start) * 1000
+
+    return total_ms / repeat
