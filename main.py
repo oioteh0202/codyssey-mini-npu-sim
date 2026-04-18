@@ -58,7 +58,7 @@ def mac_score(pattern, filt):
     total = 0.0
     n = len(pattern)
 
-    for i in range(n):
+    for i in range(n):        
         for j in range(n):
             total += pattern[i][j] * filt[i][j]
 
@@ -462,8 +462,6 @@ def print_performance_table():
         avg_ms = measure_average_ms(pattern, filt, repeat=10)
 
         print(f"{n}x{n}      {avg_ms:>12.6f}      {n * n}")
-
-
 
 # main()
 def main():
