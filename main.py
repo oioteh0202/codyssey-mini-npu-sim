@@ -463,3 +463,26 @@ def print_performance_table():
 
         print(f"{n}x{n}      {avg_ms:>12.6f}      {n * n}")
 
+
+
+# main()
+def main():
+    while True:
+        print("=== Mini NPU Simulator ===")
+        print("\n[모드 선택]\n")
+        print("1. 사용자 입력 (3x3)")
+        print("2. data.json 분석")
+
+        choice = input("선택: ").strip()
+
+        if choice == "1":
+            run_manual_mode()
+            break
+        elif choice == "2":
+            run_json_mode()
+            break
+        else:
+            print("잘못된 입력입니다. 1 또는 2를 입력하세요.\n")
+
+if __name__ == "__main__":
+    main()
