@@ -142,3 +142,36 @@ def read_matrix_from_console(n, title):
         row_index += 1
 
     return matrix
+
+# 수동 입력 모드: Cross/X 필터와 패턴을 받아 결과를 출력
+# read_matrix_from_console()로 행렬 입력받기, mac_score()로 점수 계산, decide_label()로 판정, measure_average_ms()로 실행 시간 측정
+def run_manual_mode():
+    print("\n#---------------------------------------")
+    print("# [1] 필터 입력")
+    print("#---------------------------------------")
+
+    cross_filter = read_matrix_from_console(3, "Cross 필터를 입력하세요. (3줄)")
+    x_filter = read_matrix_from_console(3, "\nX 필터를 입력하세요. (3줄)")
+
+    print("\n#---------------------------------------")
+    print("# [2] 패턴 입력")
+    print("#---------------------------------------")
+
+    pattern = read_matrix_from_console(3, "판별할 패턴을 입력하세요. (3줄)")
+
+    score_cross = mac_score(pattern, cross_filter)
+    score_x = mac_score(pattern, x_filter)
+
+    avg_cross_ms = measure_average_ms(pattern, cross_filter, repeat=10)
+    avg_x_ms = measure_average_ms(pattern, x_filter, repeat=10)
+    avg_ms = (avg_cross_ms + avg_x_ms) / 2
+
+    predicted = decide_label(score_cross, score_x)
+
+    print("\n#---------------------------------------")
+    print("# [3] MAC 결과")
+    print("#---------------------------------------")
+    print(f"Cross 점수: {score_cross}")
+    print(f"X 점수: {score_x}")
+    print(f"판정: {predicted}")
+    print(f"연산 시간(평균/10회): {avg_ms:.6f} ms")
