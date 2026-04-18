@@ -83,3 +83,62 @@ def measure_average_ms(pattern, filt, repeat=10):
         total_ms += (end - start) * 1000
 
     return total_ms / repeat
+
+# 행렬 만들기 함수들
+# cross, x로 기준 패턴 생성 / read_matrix_from_console()로 사용자 입력받기
+
+# Cross 형태 기본 패턴 행렬 만들기
+def build_cross_pattern(n):
+    matrix = []
+    mid = n // 2
+
+    for i in range(n):
+        row = []
+        for j in range(n):
+            if i == mid or j == mid:
+                row.append(1.0)
+            else:
+                row.append(0.0)
+        matrix.append(row)
+
+    return matrix
+
+# X 형태 기본 패턴 행렬 만들기
+def build_x_pattern(n):
+    matrix = []
+
+    for i in range(n):
+        row = []
+        for j in range(n):
+            if i == j or i + j == n - 1:
+                row.append(1.0)
+            else:
+                row.append(0.0)
+        matrix.append(row)
+
+    return matrix
+
+# 행렬 한 줄씩 입력받기
+def read_matrix_from_console(n, title):
+    print(title)
+    matrix = []
+    row_index = 0
+
+    while row_index < n:
+        line = input(f"{row_index + 1}번째 줄 입력: ").strip()
+        parts = line.split()
+
+        if len(parts) != n:
+            print(f"입력 형식 오류: 숫자 {n}개를 공백으로 구분해 입력하세요.")
+            continue
+
+        try:
+            row = [float(value) for value in parts]
+        except ValueError:
+            print("입력 형식 오류: 숫자만 입력하세요.")
+            continue
+
+        matrix.append(row)
+        row_index += 1
+
+    return matrix
